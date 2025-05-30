@@ -19,3 +19,25 @@
 | **Show EVPN Type-5 Routes** | `show bgp evpn route-type ip-prefix`                    | `show bgp l2vpn evpn route-type 5`                       |
 | **Show BGP Routes in VRF**  | `show ip bgp vrf Tenant-A`                              | `show bgp vrf Tenant-A`                                  |
 | **Show IP Route in VRF**    | `show ip route vrf Tenant-A`                            | `show ip route vrf Tenant-A`                             |
+
+🧪 VXLAN EVPN Troubleshooting Commands: Arista EOS vs Cisco NX-OS
+markdown
+Copy
+Edit
+| Troubleshooting Area        | Arista EOS Command                            | Cisco NX-OS Command                                |
+|-----------------------------|-----------------------------------------------|----------------------------------------------------|
+| 🔄 BGP EVPN Summary         | `show bgp evpn summary`                       | `show bgp l2vpn evpn summary`                      |
+| 👥 BGP Neighbor in VRF      | `show ip bgp neighbors vrf <VRF>`            | `show bgp vrf <VRF> neighbors`                     |
+| 📦 Show L2 VNI Info         | `show vxlan vni`                              | `show nve vni`                                     |
+| 🌐 VXLAN Tunnel Interface   | `show vxlan interface`                        | `show interface nve1`                              |
+| 🧠 BGP Routes in VRF        | `show ip bgp vrf <VRF>`                       | `show bgp vrf <VRF>`                               |
+| 📡 IP Routes in VRF         | `show ip route vrf <VRF>`                     | `show ip route vrf <VRF>`                          |
+| 📬 EVPN Type-2 (MAC+IP)     | `show bgp evpn route-type mac-ip`            | `show bgp l2vpn evpn route-type 2`                 |
+| 🌍 EVPN Type-5 (IP Prefix)  | `show bgp evpn route-type ip-prefix`         | `show bgp l2vpn evpn route-type 5`                 |
+| 📣 EVPN Type-3 (BUM)        | `show bgp evpn route-type inclusive-multicast` | `show bgp l2vpn evpn route-type 3`               |
+| 🔧 MAC Table (VXLAN)        | `show mac address-table dynamic vxlan`        | `show mac address-table vlan <vlan>`               |
+| 🌐 ARP Table in VRF         | `show ip arp vrf <VRF>`                       | `show ip arp vrf <VRF>`                            |
+| ⚠ Interface Counters        | `show interfaces counters errors`            | `show interface counters errors`                   |
+| 📊 MTU Check                | `show interfaces | include MTU`               | `show interface <intf> | include MTU`             |
+| 🔗 Ping VTEP Loopback       | `ping <remote> source <loopback>`            | `ping <remote> source <loopback>`                  |
+| 🧪 Traceroute               | `traceroute <remote>`                         | `traceroute <remote>`                              |
