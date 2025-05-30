@@ -1,3 +1,11 @@
+📦 EVPN Route Types Overview
+Route Type	Name	Description	Common Use
+Type 1	Ethernet Auto-Discovery (EAD)	Signals that a device is part of a broadcast domain (VNI) or multihoming ES	MLAG / ESI multihoming
+Type 2	MAC/IP Advertisement	Advertises a MAC address (optionally with IP)	Host MAC + IP mobility
+Type 3	Inclusive Multicast Ethernet Tag (IMET)	Advertises BUM (Broadcast, Unknown, Multicast) membership for a VNI	VXLAN flood list (BUM replication)
+Type 4	Ethernet Segment Route	Identifies Ethernet Segments (ESI) for multihomed CE detection	MLAG peer detection in EVPN
+Type 5	IP Prefix Route	Advertises IP prefixes from L3 VNIs (IRB)	IRB / L3VNI routing
+
 📘 VXLAN EVPN Configuration: Arista EOS vs Cisco NX-OS
 
 | Configuration Component      | Arista EOS Example                                      | Cisco NX-OS Example                                      |
