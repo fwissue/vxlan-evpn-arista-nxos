@@ -34,6 +34,7 @@
 | 🛠 Debug gNMI Stream             | Packet capture on TCP 6030 or 57400                    | Same (Wireshark decode as gRPC + gNMI)                 |
 | 🧾 gNMI Path Query (external)    | Use `gnmi_cli` or `pygnmi` to `get / subscribe / set`  | Same (gNMI clients work cross-vendor)                  |
 | 🧰 Example gNMI Path             | `/interfaces/interface[name=Ethernet1]/state/counters/in-octets` | `/interfaces/interface[name=Ethernet1]/state/counters/in-octets` |
+
 🧪 VXLAN EVPN Troubleshooting Commands: Arista EOS vs Cisco NX-OS
 
 | Troubleshooting Area        | Arista EOS Command                            | Cisco NX-OS Command                                |
