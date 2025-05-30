@@ -1,4 +1,4 @@
-##📘 VXLAN EVPN Configuration: Arista EOS vs Cisco NX-OS
+📘 VXLAN EVPN Configuration: Arista EOS vs Cisco NX-OS
 
 | Configuration Component      | Arista EOS Example                                      | Cisco NX-OS Example                                      |
 |-----------------------------|----------------------------------------------------------|----------------------------------------------------------|
@@ -20,6 +20,20 @@
 | **Show BGP Routes in VRF**  | `show ip bgp vrf Tenant-A`                              | `show bgp vrf Tenant-A`                                  |
 | **Show IP Route in VRF**    | `show ip route vrf Tenant-A`                            | `show ip route vrf Tenant-A`                             |
 
+📡 gNMI Telemetry Validation: Arista EOS vs Cisco NX-OS
+
+| Task / Area                      | Arista EOS (EOS ≥ 4.23.2F)                            | Cisco NX-OS (9.3(5)+ for N9K)                          |
+|----------------------------------|--------------------------------------------------------|--------------------------------------------------------|
+| ✅ Check gNMI Service Status     | `show management api gnmi`                             | `show grpc gnmi service`                               |
+| 🔌 Verify Port is Listening      | `show management api gnmi | json` <br> (`:8080` or `:6030`) | `show grpc internal gnmi`                              |
+| 🔐 Certificate/SSL Check         | `show management api gnmi certificate`                 | `show run | include gnmi server`                        |
+| ⚙️ Enable gNMI Server            | `management api gnmi` <br> `transport grpc default`    | `feature gnmi` <br> `gnmi server`                      |
+| 🧠 Check Subscriptions           | `show management api gnmi subscriptions`               | `show telemetry internal subscription all`             |
+| 📬 Streaming Data to Collector   | Validate via external collector (e.g. Telegraf, InfluxDB, Prometheus) | Same — collector must decode JSON/gRPC correctly       |
+| 📦 Supported YANG Models         | `show management api capabilities`                     | `show telemetry model` or `show gnmi capabilities`     |
+| 🛠 Debug gNMI Stream             | Packet capture on TCP 6030 or 57400                    | Same (Wireshark decode as gRPC + gNMI)                 |
+| 🧾 gNMI Path Query (external)    | Use `gnmi_cli` or `pygnmi` to `get / subscribe / set`  | Same (gNMI clients work cross-vendor)                  |
+| 🧰 Example gNMI Path             | `/interfaces/interface[name=Ethernet1]/state/counters/in-octets` | `/interfaces/interface[name=Ethernet1]/state/counters/in-octets` |
 🧪 VXLAN EVPN Troubleshooting Commands: Arista EOS vs Cisco NX-OS
 
 | Troubleshooting Area        | Arista EOS Command                            | Cisco NX-OS Command                                |
