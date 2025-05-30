@@ -21,9 +21,7 @@
 | **Show IP Route in VRF**    | `show ip route vrf Tenant-A`                            | `show ip route vrf Tenant-A`                             |
 
 🧪 VXLAN EVPN Troubleshooting Commands: Arista EOS vs Cisco NX-OS
-markdown
-Copy
-Edit
+
 | Troubleshooting Area        | Arista EOS Command                            | Cisco NX-OS Command                                |
 |-----------------------------|-----------------------------------------------|----------------------------------------------------|
 | 🔄 BGP EVPN Summary         | `show bgp evpn summary`                       | `show bgp l2vpn evpn summary`                      |
