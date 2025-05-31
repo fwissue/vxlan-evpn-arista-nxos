@@ -48,6 +48,91 @@ Type 5	IP Prefix Route	Advertises IP prefixes from L3 VNIs (IRB)	IRB / L3VNI rou
 | 🧾 gNMI Path Query (external)    | Use `gnmi_cli` or `pygnmi` to `get / subscribe / set`  | Same (gNMI clients work cross-vendor)                  |
 | 🧰 Example gNMI Path             | `/interfaces/interface[name=Ethernet1]/state/counters/in-octets` | `/interfaces/interface[name=Ethernet1]/state/counters/in-octets` |
 
+🔗 What is ESI Multihoming in EVPN?
+ESI (Ethernet Segment Identifier) multihoming allows a host or device to connect to multiple leaf switches for resiliency and active-active traffic in an EVPN VXLAN fabric.
+
+In this model:
+
+The same MAC/IP is reachable via multiple VTEPs.
+
+A unique ESI (e.g., 0000:0000:0000:0001) identifies the multihomed segment.
+
+EVPN Route Types 1 and 4 are used for DF (Designated Forwarder) election, loop prevention, and MAC synchronization.
+
+📦 Use Cases
+Use Case	Benefit
+Dual-homed servers or appliances	Active/active or active/standby
+Dual-homed top-of-rack switches	Fabric redundancy
+Interconnecting MLAG domains	Multi-site VXLAN EVPN fabrics
+
+📘 How ESI Multihoming Works
+Each leaf connected to the same host advertises:
+
+Type-1: Ethernet Auto-Discovery with ESI
+
+Type-4: Ethernet Segment Route with ESI
+
+DF Election (Designated Forwarder):
+
+One leaf is elected to forward BUM traffic for that segment.
+
+Prevents duplication and loops.
+
+Type-2 routes (MAC/IP) may be advertised with ESI attached.
+
+🧰 Arista EOS ESI Multihoming Example
+🔧 Step 1: Define Ethernet Segment
+bash
+Copy
+Edit
+interface Ethernet1
+  switchport
+  ethernet-segment identifier 0000:0000:0000:0001
+  ethernet-segment redundancy single-active
+🔧 Step 2: Enable under Port-Channel
+```bash
+interface Port-Channel10
+  switchport
+  ethernet-segment identifier 0000:0000:0000:0001
+  ethernet-segment redundancy single-active
+```
+Can also use multi-active if the downstream supports it.
+
+🧰 Cisco NX-OS ESI Multihoming Example
+🔧 Step 1: Enable Feature
+```bash
+feature evpn
+```
+🔧 Step 2: Configure Interface with ESI
+```bash
+interface Ethernet1/1
+  no switchport
+  evpn ethernet-segment
+    identifier 0000.0000.0000.0001.00
+    redundancy mode single-active
+```
+ESI format in NX-OS = 0000.0000.0000.0001.00 (5 x 4 hex digits + 1 byte)
+
+🔧 Step 3: Enable EVPN Multihoming
+```bash
+evpn
+  esi multihoming
+```
+🧪 Validation Commands
+|Check	                 |Arista EOS	                              |Cisco NX-OS
+|------------------------|-----------------------------------------|--------------------------------------|
+|ESI Route Advertised	|show bgp evpn route-type ethernet-segment|	show bgp l2vpn evpn route-type 4     |
+|EAD Route (Type-1)	|show bgp evpn route-type ethernet-auto-discovery	|show bgp l2vpn evpn route-type 1 |
+|MAC Advertisement with ESI	|show bgp evpn route-type mac-ip	|show bgp l2vpn evpn route-type 2 |
+|DF Election Status	|show ethernet-segment	|show evpn ethernet-segment |
+
+🧠 Notes
+ESI must be consistent across all participating leafs for a segment.
+
+Works with or without MLAG — MLAG syncs MACs automatically, ESI makes it BGP-visible.
+
+BGP Route Reflector must reflect Type 1/2/4 routes correctly.
+
 🧪 VXLAN EVPN Troubleshooting Commands: Arista EOS vs Cisco NX-OS
 
 | Troubleshooting Area        | Arista EOS Command                            | Cisco NX-OS Command                                |
