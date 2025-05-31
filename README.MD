@@ -82,13 +82,13 @@ Type-2 routes (MAC/IP) may be advertised with ESI attached.
 
 🧰 Arista EOS ESI Multihoming Example
 🔧 Step 1: Define Ethernet Segment
-bash
-Copy
-Edit
+```bash
+
 interface Ethernet1
   switchport
   ethernet-segment identifier 0000:0000:0000:0001
   ethernet-segment redundancy single-active
+```
 🔧 Step 2: Enable under Port-Channel
 ```bash
 interface Port-Channel10
