@@ -81,6 +81,7 @@ Prevents duplication and loops.
 Type-2 routes (MAC/IP) may be advertised with ESI attached.
 
 🧰 Arista EOS ESI Multihoming Example
+
 🔧 Step 1: Define Ethernet Segment
 ```bash
 
