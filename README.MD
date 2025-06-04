@@ -151,6 +151,6 @@ BGP Route Reflector must reflect Type 1/2/4 routes correctly.
 | 🔧 MAC Table (VXLAN)        | `show mac address-table dynamic vxlan`        | `show mac address-table vlan <vlan>`               |
 | 🌐 ARP Table in VRF         | `show ip arp vrf <VRF>`                       | `show ip arp vrf <VRF>`                            |
 | ⚠ Interface Counters        | `show interfaces counters errors`            | `show interface counters errors`                   |
-| 📊 MTU Check                | `show interfaces | include MTU`               | `show interface <intf> | include MTU`             |
+| 📊 MTU Check                | `show interfaces \| include MTU`               | `show interface <intf> \| include MTU`             |
 | 🔗 Ping VTEP Loopback       | `ping <remote> source <loopback>`            | `ping <remote> source <loopback>`                  |
 | 🧪 Traceroute               | `traceroute <remote>`                         | `traceroute <remote>`                              |
